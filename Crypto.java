@@ -22,33 +22,33 @@ public class Crypto {
     encoder = new BASE64Encoder();
   }
 
-  public String XorDecrypt(final String s) {
+  public String XorDecrypt(final String str) {
     return XorDecrypt(s ,XOR_KEY);
   }
 
-  public String XorEncrypt(final String s) {
+  public String XorEncrypt(final String str) {
     return XorEncrypt(s, XOR_KEY);
   }
 
-  public String XorEncrypt(final String s, final String key) {
+  public String XorEncrypt(final String str, final String key) {
     return base64Encode(xorWithKey(s.getBytes(), key.getBytes()));
   }
 
-  public String XorDecrypt(final String s, final String key) {
+  public String XorDecrypt(final String str, final String key) {
     return new String(xorWithKey(base64Decode(s), key.getBytes()));
   }
 
-  private byte[] xorWithKey(final byte[] a, final byte[] key) {
-    final byte[] out = new byte[a.length];
+  private byte[] xorWithKey(final byte[] str, final byte[] key) {
+    final byte[] out = new byte[str.length];
     for (int i = 0; i < a.length; i++) {
-      out[i] = (byte) (a[i] ^ key[i%key.length]);
+      out[i] = (byte) (str[i] ^ key[i%key.length]);
     }
     return out;
   }
 
-  private byte[] base64Decode(final String s) {
+  private byte[] base64Decode(final String str) {
     try {
-      return decoder.decodeBuffer(s);
+      return decoder.decodeBuffer(str);
     } catch (final Exception e) {
       throw new RuntimeException(e);}
   }
